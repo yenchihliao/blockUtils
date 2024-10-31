@@ -1,1 +1,9 @@
 .env*
+node_modules
+
+.vscode
+
+# Foundry
+broadcast
+cache
+out

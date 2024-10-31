@@ -5,7 +5,47 @@ libs = ["lib"]
 remappings=[
     "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
     "@openzeppelin-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/",
-    # "@chainlink=lib/chainlink",
 ]
+
+[rpc_endpoints]
+1 = "https://mainnet.infura.io/v3/${INFURA}" # ETH
+10 = "https://optimism-mainnet.infura.io/v3/${INFURA}" # Optimism
+56 = "https://bsc-mainnet.infura.io/v3/${INFURA}" # BSC
+108 = "https://mainnet-rpc.thundercore.com" # Metis
+137 = "https://polygon-mainnet.infura.io/v3/${INFURA}" # Polygon
+196 = "https://rpc.xlayer.tech" # X Layer
+250 = "https://fantom-mainnet.g.alchemy.com/v2/${ALCHEMY}" # Fantom
+321 = "https://rpc-mainnet.kcc.network" # KCC
+592 = "wss://astar.api.onfinality.io/public-ws" # Astar
+# 592 = "https://astar-mainnet.g.alchemy.com/v2/${ALCHEMY}" # Encounter: server returned an error response: error code -32603: provided gas limit is too high (can be up to 10x the block gas limit)
+1285 = "https://rpc.api.moonriver.moonbeam.network" # moonriver
+5000 = "https://mantle-mainnet.infura.io/v3/${INFURA}" # Mantle
+6699 = "https://rpc.oxscan.io" # OX
+8217 = "https://1rpc.io/klay" # Kaia
+# 8217 = "https://public-node-api.klaytnapi.com/v1/cypress" # Kaia
+# 8217 = "https://klaytn-pokt.nodies.app" # Kaia
+8453 = "https://base-mainnet.g.alchemy.com/v2/${ALCHEMY}" # Base
+10507 = "https://mainnetrpc.num.network" # Numbers
+42161 = "https://arbitrum-mainnet.infura.io/v3/${INFURA}" # Arbitrum
+43114 = "https://avalanche-mainnet.infura.io/v3/${INFURA}" # Avalanche
+59144 = "https://linea-mainnet.infura.io/v3/${INFURA}" # Linea
+81457 = "https://blast-mainnet.infura.io/v3/${INFURA}" # Blast
+167000 = "https://rpc.mainnet.taiko.xyz" # taiko
+534352 = "https://rpc.scroll.io" # Scroll
+
+99999 = "http://34.81.239.186:8080" # Settlement chain
+
+# ZK networks
+25 = "https://rpc.vvs.finance/" # Cronos
+324 = "https://mainnet.era.zksync.io" # zkSync
+388 = "https://mainnet.zkevm.cronos.org" # Cronos zkEVM
+1101 = "https://polygon-zkevm-mainnet.public.blastapi.io" # Ploygon zkEVM
+# 1101 = "https://1rpc.io/polygon/zkevm" # Ploygon zkEVM
+1111 = "https://api.wemix.com/" # WEMIX3.0
+
+# Testnets
+local = "127.0.0.1:8545" # Anvil local node
+11155111 = "https://sepolia.infura.io/v3/${INFURA}" # Sepolia
+421614 = "https://arbitrum-sepolia.infura.io/v3/${INFURA}" # Arbitrum Sepolia
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
