@@ -12,6 +12,7 @@ eth-account = "^0.13.0"
 pyyaml = "^6.0.1"
 sqlalchemy = "^2.0.31"
 pymysql = "^1.1.1"
+web3 = "^7.4.0"
 
 
 [build-system]
