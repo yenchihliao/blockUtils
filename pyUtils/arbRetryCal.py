@@ -19,15 +19,16 @@ def calculate_submit_retryable_id(
     max_fee_per_gas: int,
     data: str
 ) -> str:
-    def format_number(value: int, length: int = 32) -> bytes:
-        return to_bytes(value).rjust(length, b'\x00')
+    def format_number(value: int) -> bytes:
+        print(f'formatting: {value}')
+        ret = bytes.fromhex(HexBytes(value).hex())
+        print(f'formatted: {ret.hex()}')
+        return ret
 
     # Convert inputs to byte format and pad where necessary
-    chain_id = format_number(l2_chain_id)
-    msg_num = format_number(message_number)
     fields = [
-        chain_id,
-        msg_num,
+        format_number(l2_chain_id),
+        format_number(message_number).rjust(32, b'\x00'),
         Web3.to_bytes(hexstr=from_address),
         format_number(l1_base_fee),
         format_number(l1_value),
@@ -78,9 +79,9 @@ if __name__ == '__main__':
     # inbox_message_delivered[1]
     l2_call_value = 1
     # inbox_message_delivered[2]
-    l1_value = 27149394031201
+    l1_value = 27569394031201
     # inbox_message_delivered[3]
-    max_submission_fee = 27149394031201
+    max_submission_fee = 27149394031200
     # inbox_message_delivered[4]
     excess_fee_refund_address =  '0x856C363E043AC34B19D584D3930BFA615947994E'
     # inbox_message_delivered[5]
@@ -91,8 +92,7 @@ if __name__ == '__main__':
     max_fee_per_gas = 20000000
     # inbox_message_delivered[9]
     data = ''
-    print (
-        calculate_submit_retryable_id(
+    predict = calculate_submit_retryable_id(
             l2_chain_id,
             from_address,
             message_number,
@@ -107,4 +107,5 @@ if __name__ == '__main__':
             max_fee_per_gas,
             data
         )
-    )
+    target = "0x62f686d756529746e4fc6c776e712b03f346c17c71af712944dd02b56a7d5e7a"
+    print (predict, target)
