@@ -1,5 +1,6 @@
 from math import e
 from eth_utils import keccak, to_bytes, to_hex
+import rlp
 from web3 import Web3
 from rlp import encode as rlp_encode
 from hexbytes import HexBytes
@@ -40,12 +41,14 @@ def calculate_submit_retryable_id(
         Web3.to_bytes(hexstr=excess_fee_refund_address),
         Web3.to_bytes(hexstr=data)
     ]
+    print(fields)
     # Print each field in HexBytes format
-    for i, field in enumerate(fields):
-        print(f"Field {i}: {HexBytes(field).hex()}")
+    # for i, field in enumerate(fields):
+    #     print(f"Field {i}: {HexBytes(field).hex()}")
 
     # RLP encode the fields with Arbitrum transaction type 0x69
     rlp_encoded = to_hex(b'\x69' + rlp_encode(fields))
+    print(rlp_encoded)
 
     # Calculate and return keccak256 hash
     return Web3.to_hex(keccak(hexstr=rlp_encoded))
@@ -69,6 +72,7 @@ def calculate_submit_retryable_id(
 if __name__ == '__main__':
     l2_chain_id = 42161
     from_address = '0x78046053E5B02Ca2056D7007cf55747244223E5B'
+    from_address = '0x89156053E5B02Ca2056D7007cf55747244224f6C'
     # inbox_message_delivered index 1
     message_number = 1737018
     # cast base-fee -r 1 block_height
@@ -107,4 +111,5 @@ if __name__ == '__main__':
             max_fee_per_gas,
             data
         )
-    )
+    target = "0x62f686d756529746e4fc6c776e712b03f346c17c71af712944dd02b56a7d5e7a"
+    print (predict == target)

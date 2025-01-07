@@ -32,6 +32,7 @@ abstract contract StubInbox {
         bytes calldata data
     ) virtual external;
 
+    event MessageDelivered( uint256 indexed messageIndex, bytes32 indexed beforeInboxAcc, address inbox, uint8 kind, address sender, bytes32 messageDataHash, uint256 baseFeeL1, uint64 timestamp);
     event InboxMessageDelivered(uint256 indexed messageNum, bytes data);
     event RedeemScheduled(bytes32 indexed ticketId, bytes32 indexed retryTxHash, uint64 indexed sequenceNum, uint64 donatedGas, address gasDonor, uint256 maxRefund, uint256 submissionFeeRefund);
 }
@@ -48,9 +49,9 @@ contract SendUnsafeCreateRetryableTicket is Test, Script {
 
         // SwissKnife _swissKnife__ = SwissKnife(0x2b223c44C2Ad3f1cFf0022e91c87ad7DbfA05026); // arb sepolia
         SwissKnife _swissKnife__ = SwissKnife(0x78046053E5B02Ca2056D7007cf55747244223E5B); // Eth
-        address _receiver = 0x51c289a2C7aE30BC39D60F0d210cC17FA15C8950;
-        address _receiver2 = 0x856c363e043Ac34B19D584D3930bfa615947994E;
-        address _receiver3 = 0x9C9F55ebc51D0D606227790d14Afcb706178dE98;
+        address _receiver = 0x95244948C80B46c9f196d42e80635C254F6d9f14; // xsync vault
+        address _receiver2 = 0x51c289a2C7aE30BC39D60F0d210cC17FA15C8950;
+        address _receiver3 = 0x51c289a2C7aE30BC39D60F0d210cC17FA15C8950;
         uint256 _bridgeAmount = 1 wei;
 
         // Get the maxSubmissionCost on L1
@@ -60,7 +61,7 @@ contract SendUnsafeCreateRetryableTicket is Test, Script {
 
         // Get the gasLimit on L2
         // Transfer only takes 21000 gas
-        uint256 _gasLimit = 21000;
+        uint256 _gasLimit = 100000;
 
         // Get the maxFeePerGas on L2
         // tx.gasprice
