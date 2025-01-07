@@ -12,7 +12,8 @@ for i in range(len(encoded) // 64):
     start = (i << 6)
     end = start + 64
     chunk = encoded[start: end]
-    # print(f"Chunk {i+1}: {chunk}")
+
+    start //= 2 # convert hexstring len to bytestring len
 
     try:
         # Convert the chunk to a uint256 value
@@ -31,10 +32,10 @@ for i in range(len(encoded) // 64):
         print(f"0x{start:03x} Address - 0x{address}")
     else:
         # More like a number, print in scientific notation
-        if(uint_value % 32 == 0):
-            print(f"0x{start:03x} Hex Num - 0x{uint_value:x}")
         if(uint_value > 1e6):
             print(f"0x{start:03x} Num     - {uint_value:.2e}")
+        elif(uint_value % 32 == 0):
+            print(f"0x{start:03x} Hex Num - 0x{uint_value:x}")
         else:
             print(f"0x{start:03x} Num     - {uint_value}")
 
