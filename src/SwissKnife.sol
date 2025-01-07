@@ -11,13 +11,12 @@ contract SwissKnife is Initializable, UUPSUpgradeable, OwnableUpgradeable {
         __UUPSUpgradeable_init(); // Initialize UUPS upgradeability
     }
 
-    function delegateForward(address _addr, bytes calldata _calldata) payable external onlyOwner {
-        (bool success,) = _addr.call{value:msg.value}(_calldata);
-        if(!success) {
+    function delegateForward(address _addr, bytes calldata _calldata) external payable onlyOwner {
+        (bool success,) = _addr.call{value: msg.value}(_calldata);
+        if (!success) {
             revert();
         }
     }
 
     function _authorizeUpgrade(address newImplementation) internal override onlyOwner {}
 }
-

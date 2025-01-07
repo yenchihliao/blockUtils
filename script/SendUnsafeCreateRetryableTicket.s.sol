@@ -17,10 +17,13 @@ abstract contract StubInbox {
         uint256 gasLimit,
         uint256 maxFeePerGas,
         bytes calldata data
-    ) virtual external payable returns (uint256);
+    ) external payable virtual returns (uint256);
 
     function calculateRetryableSubmissionFee(uint256 dataLength, uint256 baseFee)
-    virtual public view returns (uint256);
+        public
+        view
+        virtual
+        returns (uint256);
 
     function estimateRetryableTicket(
         address sender,
@@ -30,19 +33,38 @@ abstract contract StubInbox {
         address excessFeeRefundAddress,
         address callValueRefundAddress,
         bytes calldata data
-    ) virtual external;
+    ) external virtual;
 
-    event MessageDelivered( uint256 indexed messageIndex, bytes32 indexed beforeInboxAcc, address inbox, uint8 kind, address sender, bytes32 messageDataHash, uint256 baseFeeL1, uint64 timestamp);
+    event MessageDelivered(
+        uint256 indexed messageIndex,
+        bytes32 indexed beforeInboxAcc,
+        address inbox,
+        uint8 kind,
+        address sender,
+        bytes32 messageDataHash,
+        uint256 baseFeeL1,
+        uint64 timestamp
+    );
     event InboxMessageDelivered(uint256 indexed messageNum, bytes data);
-    event RedeemScheduled(bytes32 indexed ticketId, bytes32 indexed retryTxHash, uint64 indexed sequenceNum, uint64 donatedGas, address gasDonor, uint256 maxRefund, uint256 submissionFeeRefund);
+    event RedeemScheduled(
+        bytes32 indexed ticketId,
+        bytes32 indexed retryTxHash,
+        uint64 indexed sequenceNum,
+        uint64 donatedGas,
+        address gasDonor,
+        uint256 maxRefund,
+        uint256 submissionFeeRefund
+    );
 }
 // Usage: forg script --rpc-url $L1_URL --private-key $KEY "script/SendUnsafeCreateRetryableTicket.s.sol:SendUnsafeCreateRetryableTicket"
+
 contract SendUnsafeCreateRetryableTicket is Test, Script {
     modifier broadcastAll() {
         vm.startBroadcast();
         _;
         vm.stopBroadcast();
     }
+
     function run() external {
         // StubInbox _inbox__ = StubInbox(0xaAe29B0366299461418F5324a79Afc425BE5ae21); // sepolia
         StubInbox _inbox__ = StubInbox(0x4Dbd4fc535Ac27206064B68FfCf827b0A60BAB3f); // Eth

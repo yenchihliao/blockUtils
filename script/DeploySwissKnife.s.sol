@@ -13,6 +13,7 @@ contract DeploySwissKnife is Script {
         _;
         vm.stopBroadcast();
     }
+
     function run() external broadcastAll {
         // Deploy SwissKnife implementation contract
         bytes32 _salt = keccak256(abi.encodePacked("SwissKnifeDeploymentSalt"));
@@ -23,10 +24,7 @@ contract DeploySwissKnife is Script {
         _salt = keccak256(abi.encodePacked("SwissKnifeProxySalt"));
         bytes memory _bytecode = abi.encodePacked(
             type(UUPSProxy).creationCode,
-            abi.encode(
-                _impl,
-                abi.encodeWithSelector(SwissKnife.initialize.selector, msg.sender)
-            )
+            abi.encode(_impl, abi.encodeWithSelector(SwissKnife.initialize.selector, msg.sender))
         );
         address _proxy = Create2.deploy(0, _salt, _bytecode);
 
